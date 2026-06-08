@@ -10,7 +10,7 @@ You can still help:
 
 ## Report a bug
 
-Open a [bug report](https://github.com/madeonshroom) issue with:
+Open a [bug report](https://github.com/MadeOnShroom/madeonshroom/issues) issue with:
 
 - What you expected to happen vs. what actually happened
 - Steps to reproduce
