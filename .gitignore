@@ -1,0 +1,24 @@
+# This is a public, docs-only repository. Never commit secrets or build output.
+
+# Environment & secrets
+.env
+.env.*
+*.pem
+*.key
+*.keypair.json
+id.json
+wallet*.json
+secrets/
+
+# Dependencies & build output (in case anyone adds tooling)
+node_modules/
+dist/
+build/
+.cache/
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.log
