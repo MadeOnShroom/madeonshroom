@@ -14,10 +14,11 @@
 4. [Bonding Curve Mechanics](#3-bonding-curve-mechanics)
 5. [Token Standard & Supply](#4-token-standard--supply)
 6. [Fees & Creator Rewards](#5-fees--creator-rewards)
-7. [Security & Unruggable Guarantees](#6-security--unruggable-guarantees)
-8. [Technical Architecture](#7-technical-architecture)
-9. [Roadmap](#8-roadmap)
-10. [Risk & Disclaimer](#9-risk--disclaimer)
+7. [Bounties (Escrow Challenges)](#6-bounties-escrow-challenges)
+8. [Security & Unruggable Guarantees](#7-security--unruggable-guarantees)
+9. [Technical Architecture](#8-technical-architecture)
+10. [Roadmap](#9-roadmap)
+11. [Risk & Disclaimer](#10-risk--disclaimer)
 
 ---
 
@@ -117,7 +118,42 @@ panel.
 
 ---
 
-## 6. Security & Unruggable Guarantees
+## 6. Bounties (Escrow Challenges)
+
+Bounties extend MadeOnShroom beyond trading: they let anyone post a **challenge backed by a real SOL
+reward** and pay it out to whoever proves they completed it. They are designed to drive community
+participation — content, tasks, milestones — with a transparent, on-chain reward.
+
+**Lifecycle**
+
+1. **Post.** A creator describes the challenge, chooses the SOL reward freely, and sets a deadline.
+   They sign a single transaction that transfers the **reward plus a flat 0.1 SOL platform fee** to
+   the platform escrow wallet. The backend verifies this deposit on-chain before activating the
+   bounty.
+2. **Submit.** Participants submit photo or video proof of completion.
+3. **Approve & pay.** A winning submission requires approval from **both the creator and the platform
+   team**. Once both approve, the reward is paid to the winner and the payout transaction is recorded
+   on-chain.
+4. **Refund.** If the deadline passes without an approved winner, the reward is **refunded to the
+   creator**. The flat 0.1 SOL fee is non-refundable.
+
+| Item         | Value                                                 |
+| ------------ | ----------------------------------------------------- |
+| Reward       | Chosen freely by the creator                          |
+| Platform fee | Flat **0.1 SOL** per bounty (non-refundable)          |
+| Approval     | Creator **and** platform must both approve the winner |
+| On expiry    | Reward refunded to the creator                        |
+
+**Custody model.** Unlike token creation and trading — which are fully non-custodial — a bounty
+reward is **held in escrow by the platform wallet** between posting and settlement. This is the one
+deliberately custodial part of the protocol, required so the reward is guaranteed to exist when a
+winner is approved. The backend never holds private keys: every escrow deposit, payout, and refund is
+an ordinary on-chain SOL transfer that is verified server-side and independently checkable on a Solana
+explorer.
+
+---
+
+## 7. Security & Unruggable Guarantees
 
 Every token enforces the following properties on-chain at launch:
 
@@ -128,7 +164,7 @@ Every token enforces the following properties on-chain at launch:
 
 ---
 
-## 7. Technical Architecture
+## 8. Technical Architecture
 
 MadeOnShroom is **non-custodial by design**. All pricing, trading, and graduation logic runs on the
 public Meteora DBC program; graduated tokens trade on Meteora DAMM v2. The backend is a **read-only
@@ -141,7 +177,7 @@ provides the same non-custodial experience via Phantom.
 
 ---
 
-## 8. Roadmap
+## 9. Roadmap
 
 | Milestone                  | Description                                                                                  | Status            |
 | -------------------------- | -------------------------------------------------------------------------------------------- | ----------------- |
@@ -154,7 +190,7 @@ The roadmap is indicative and may evolve. It is not a commitment or a guarantee 
 
 ---
 
-## 9. Risk & Disclaimer
+## 10. Risk & Disclaimer
 
 **Not financial advice.** Nothing in this document is financial, investment, legal, or tax advice.
 Crypto tokens are highly speculative and frequently lose all value. You can lose 100% of the funds you
