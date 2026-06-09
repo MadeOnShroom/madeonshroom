@@ -54,8 +54,8 @@ MadeOnShroom addresses these problems with four design principles:
   platform never holds your SOL, tokens, or keys, and never signs on your behalf.
 - **Unruggable at launch** — mint and freeze authority are revoked, metadata is immutable, and
   graduated liquidity is permanently locked — enforced on-chain for every token.
-- **Aligned creator rewards** — creators earn 50% of all trading fees on their token, continuously,
-  rewarding them for building real, lasting volume.
+- **Aligned creator rewards** — creators earn 50% of trading fees during the bonding curve, then the
+  larger 70% share after graduation, continuously — rewarding them for building real, lasting volume.
 - **Transparent economics** — a flat creation fee and a flat trading fee, both clearly disclosed and
   identical for every launch.
 
@@ -97,19 +97,23 @@ with no pre-mine or team allocation.
 ## 5. Fees & Creator Rewards
 
 Creating a token costs a flat **0.025 SOL platform fee** at launch plus a **~0.025 SOL** Solana
-network fee (account rent + validator gas), for roughly **0.05 SOL** in total. Every trade carries a
-flat **1% fee** on each buy and sell, split evenly between the platform and the token's creator.
+network fee (account rent + validator gas), for roughly **0.05 SOL** in total. During the
+bonding-curve phase, every trade carries a flat **1% fee** on each buy and sell, split evenly
+(**50% platform / 50% creator**). After a token graduates to its Meteora DAMM v2 pool, the trading
+fee is **0.25%**, split **30% platform / 70% creator** — so creators earn the larger share of
+post-graduation volume.
 
-| Action         | Platform  | Creator |
-| -------------- | --------- | ------- |
-| Token creation | 0.025 SOL | —       |
-| Buy trade      | 0.5%      | 0.5%    |
-| Sell trade     | 0.5%      | 0.5%    |
-| Graduation     | Free      | —       |
+| Action                                   | Platform  | Creator |
+| ---------------------------------------- | --------- | ------- |
+| Token creation                           | 0.025 SOL | —       |
+| Buy / sell — bonding curve (1%)          | 0.5%      | 0.5%    |
+| Buy / sell — after graduation (0.25%)    | 0.075%    | 0.175%  |
+| Graduation                               | Free      | —       |
 
-The 50% / 50% split is fixed on-chain by the bonding-curve config and is identical for every token.
-Fees accrue on-chain in SOL and are claimed by the share owner — creators from their Profile →
-Rewards, the platform from the Admin panel.
+The splits are fixed on-chain and identical for every token — 50% / 50% on the 1% bonding-curve fee,
+then 30% platform / 70% creator on the 0.25% fee after graduation. Fees accrue on-chain in SOL and
+are claimed by the share owner — creators from their Profile → Rewards, the platform from the Admin
+panel.
 
 ---
 
@@ -120,7 +124,7 @@ Every token enforces the following properties on-chain at launch:
 - **Mint authority revoked** — supply is permanently fixed at 1,000,000,000; no one can ever mint more.
 - **Freeze authority revoked** — no account can be frozen; tokens cannot be locked or seized.
 - **Immutable metadata** — name, symbol, and image cannot be changed after creation.
-- **LP locked at graduation** — 100% of migrated liquidity is permanently locked and can never be withdrawn.
+- **LP locked at graduation** — 100% of migrated liquidity is permanently locked and can never be withdrawn (the locked position is split 30% platform / 70% creator for fee accrual only — neither side can ever pull the liquidity).
 
 ---
 
