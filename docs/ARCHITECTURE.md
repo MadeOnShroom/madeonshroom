@@ -14,7 +14,8 @@ the off-chain components are read-only.
 - **Meteora Dynamic Bonding Curve (DBC)** — handles token creation, bonding-curve pricing, buys,
   sells, and graduation. Program id: `dbcij3LWUppWqq96dh6gJWwBifmcGfLSB5D4DuSMaqN`.
 - **Meteora DAMM v2** — after a token graduates (~110 SOL reserve), liquidity migrates here and is
-  permanently locked. The token continues trading on this pool.
+  permanently locked. The token continues trading on this pool at a 0.25% fee, split 30% platform /
+  70% creator (vs. 1% split 50/50 on the bonding curve).
 
 All token, trade, and pool state is public and independently verifiable on a Solana explorer.
 
