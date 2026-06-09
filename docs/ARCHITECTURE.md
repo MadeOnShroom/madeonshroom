@@ -40,6 +40,23 @@ The indexer **cannot move funds**, never holds SOL or private keys, and is never
 signing path. If it were unavailable, on-chain trading would still function directly against the
 programs.
 
+### 4. Bounty escrow (the one custodial component)
+
+Bounties let a creator post a SOL-backed challenge. Unlike token creation and trading, a bounty
+reward is **held in escrow by the platform wallet** between posting and settlement — this is the only
+deliberately custodial part of the platform.
+
+- **Deposit.** The creator signs a transfer of the **reward + a flat 0.1 SOL fee** to the platform
+  escrow wallet. The backend verifies the transfer on-chain (correct destination, sender, and amount)
+  before activating the bounty.
+- **Approval.** A winning submission must be approved by **both the creator and the platform team**.
+- **Settlement.** The platform pays the approved winner (or, after the deadline with no winner,
+  refunds the creator) and records the on-chain transaction. The flat fee is non-refundable.
+
+The backend still **never holds private keys** and never signs a deposit on a user's behalf — it only
+verifies that the expected on-chain transfers happened. Every deposit, payout, and refund is a public
+SOL transfer verifiable on a Solana explorer.
+
 ## Non-custodial flow (create / trade)
 
 ```
