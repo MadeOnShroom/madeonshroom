@@ -39,7 +39,8 @@ wallet. MadeOnShroom never holds your SOL, your tokens, or your keys, and never 
 - **Creator rewards** — creators earn 50% of trading fees on the bonding curve, then the larger 70% share after graduation, continuously.
 - **Automatic graduation** — at ~110 SOL of reserve, liquidity migrates to a Meteora DAMM v2 pool and is locked.
 - **Transparent economics** — a flat creation fee and a flat trading fee, identical for every launch.
-- **Web + native mobile** — the same non-custodial experience on the web and on iOS & Android.
+- **Bounties** — post a challenge backed by a real SOL reward held in escrow; participants submit photo/video proof and the winner is paid only after both the creator and the platform approve.
+- **Web + native mobile** — the same experience on the web and on iOS & Android.
 
 ---
 
@@ -84,6 +85,34 @@ Meteora DAMM v2 pool, the fee is **0.25%**, split **30% platform / 70% creator**
 The splits are fixed on-chain and identical for every token — 50% / 50% on the 1% bonding-curve fee,
 then 30% platform / 70% creator on the 0.25% fee after graduation. Fees accrue on-chain in SOL and
 are claimed by their respective owner.
+
+---
+
+## 🎯 Bounties
+
+Bounties turn community actions into on-chain challenges with a real reward. Anyone can post a task,
+back it with a SOL reward, and pay it out to whoever proves they completed it.
+
+1. **Post** — a creator describes the challenge, sets the SOL reward and a deadline, and signs one
+   transaction that sends the **reward + a flat 0.1 SOL platform fee** to the platform escrow wallet.
+   The deposit is verified on-chain before the bounty goes live.
+2. **Submit** — participants submit photo/video proof of completion.
+3. **Approve & pay** — a winning submission must be approved by **both** the creator **and** the
+   platform team. The reward is then paid to the winner, and the payout transaction is recorded
+   on-chain for transparency.
+4. **Refund** — if the deadline passes with no approved winner, the **reward is refunded to the
+   creator**. The flat 0.1 SOL fee is non-refundable.
+
+| Item                | Value                                                     |
+| ------------------- | --------------------------------------------------------- |
+| Reward              | Chosen freely by the creator                              |
+| Platform fee        | Flat **0.1 SOL** per bounty (non-refundable)              |
+| Approval            | Creator **and** platform must both approve the winner     |
+| On expiry           | Reward refunded to the creator                            |
+
+> ⚠️ **Custody note.** Unlike token creation and trading — which are fully non-custodial — a bounty
+> **reward is held in escrow by the platform wallet** between posting and payout. Every escrow
+> deposit, payout, and refund is an on-chain transfer you can verify on a Solana explorer.
 
 ---
 
