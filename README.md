@@ -36,7 +36,7 @@ wallet. MadeOnShroom never holds your SOL, your tokens, or your keys, and never 
 - **Non-custodial** — you sign every transaction in your own wallet; the platform never custodies funds or keys.
 - **Unruggable at launch** — mint & freeze authority revoked, metadata immutable, graduated liquidity permanently locked.
 - **Bonding-curve pricing** — price rises as people buy and falls as they sell, fully on-chain, no order book.
-- **Creator rewards** — creators earn 50% of all trading fees on their token, continuously.
+- **Creator rewards** — creators earn 50% of trading fees on the bonding curve, then the larger 70% share after graduation, continuously.
 - **Automatic graduation** — at ~110 SOL of reserve, liquidity migrates to a Meteora DAMM v2 pool and is locked.
 - **Transparent economics** — a flat creation fee and a flat trading fee, identical for every launch.
 - **Web + native mobile** — the same non-custodial experience on the web and on iOS & Android.
@@ -70,18 +70,20 @@ No pre-mine, no team allocation — the entire supply sits in the bonding curve 
 ## 💰 Fees
 
 Creating a token costs a flat **0.025 SOL platform fee** plus a **~0.025 SOL** Solana network fee
-(account rent + validator gas) — roughly **0.05 SOL** in total. Every trade carries a flat **1% fee**,
-split evenly between the platform and the token's creator.
+(account rent + validator gas) — roughly **0.05 SOL** in total. During the bonding-curve phase, every
+trade carries a flat **1% fee** split evenly (**50% platform / 50% creator**). After graduation to a
+Meteora DAMM v2 pool, the fee is **0.25%**, split **30% platform / 70% creator**.
 
-| Action         | Platform  | Creator |
-| -------------- | --------- | ------- |
-| Token creation | 0.025 SOL | —       |
-| Buy trade      | 0.5%      | 0.5%    |
-| Sell trade     | 0.5%      | 0.5%    |
-| Graduation     | Free      | —       |
+| Action                                   | Platform  | Creator |
+| ---------------------------------------- | --------- | ------- |
+| Token creation                           | 0.025 SOL | —       |
+| Buy / sell — bonding curve (1%)          | 0.5%      | 0.5%    |
+| Buy / sell — after graduation (0.25%)    | 0.075%    | 0.175%  |
+| Graduation                               | Free      | —       |
 
-The 50% / 50% trading-fee split is fixed on-chain by the bonding-curve config and is identical for
-every token. Fees accrue on-chain in SOL and are claimed by their respective owner.
+The splits are fixed on-chain and identical for every token — 50% / 50% on the 1% bonding-curve fee,
+then 30% platform / 70% creator on the 0.25% fee after graduation. Fees accrue on-chain in SOL and
+are claimed by their respective owner.
 
 ---
 
