@@ -23,6 +23,8 @@ read-only.
 
 - **On-chain bonding-curve contracts** — token creation and bonding-curve pricing (buys/sells) in ETH.
   Tokens are standard ERC-20s.
+- **Uniswap V2** — after a token graduates (~$50k fully-diluted value), it trades on a Uniswap V2 pair;
+  the creator-chosen tax keeps applying as a transfer tax.
 
 Each token carries a creator-chosen trading tax of **1.5%–6%**: the platform keeps a flat 1% and the
 creator earns the remainder, fixed on-chain. All token, trade, and pool state is public and
@@ -76,7 +78,7 @@ transfer verifiable on an explorer.
 ## Non-custodial flow (create / trade)
 
 ```
-User wallet  ──signs──▶  On-chain program (Meteora DBC / DAMM v2 on Solana · bonding curve on Base)
+User wallet  ──signs──▶  On-chain program (Meteora DBC / DAMM v2 on Solana · bonding curve / Uniswap V2 on Base)
      ▲                              │
      │ unsigned tx                  │ public state
      │                              ▼
