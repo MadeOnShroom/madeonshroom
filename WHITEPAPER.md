@@ -1,8 +1,8 @@
 # MadeOnShroom Whitepaper
 
-**Version 1.0 — June 2026**
+**Version 1.1 — June 2026**
 
-*A non-custodial, fair-launch token launchpad on Solana with unruggable guarantees and creator rewards.*
+*A non-custodial, fair-launch token launchpad on Solana and Base, with unruggable guarantees and creator rewards.*
 
 ---
 
@@ -13,25 +13,27 @@
 3. [The MadeOnShroom Solution](#2-the-madeonshroom-solution)
 4. [Bonding Curve Mechanics](#3-bonding-curve-mechanics)
 5. [Token Standard & Supply](#4-token-standard--supply)
-6. [Fees & Creator Rewards](#5-fees--creator-rewards)
-7. [Bounties (Escrow Challenges)](#6-bounties-escrow-challenges)
-8. [Security & Unruggable Guarantees](#7-security--unruggable-guarantees)
-9. [Technical Architecture](#8-technical-architecture)
-10. [Roadmap](#9-roadmap)
-11. [Risk & Disclaimer](#10-risk--disclaimer)
+6. [Fees, Taxes & Creator Rewards](#5-fees-taxes--creator-rewards)
+7. [Bridge to Base & the Official $SHROOM Token](#6-bridge-to-base--the-official-shroom-token)
+8. [Bounties (Escrow Challenges)](#7-bounties-escrow-challenges)
+9. [Security & Unruggable Guarantees](#8-security--unruggable-guarantees)
+10. [Technical Architecture](#9-technical-architecture)
+11. [Roadmap](#10-roadmap)
+12. [Risk & Disclaimer](#11-risk--disclaimer)
 
 ---
 
 ## Abstract
 
-MadeOnShroom is a **non-custodial, fair-launch token launchpad** on the Solana blockchain. It lets
-anyone create a fully on-chain SPL token in seconds and trade it on an automated **bonding curve** —
-with no coding, no order book, and no intermediary holding user funds.
+MadeOnShroom is a **non-custodial, fair-launch token launchpad** on **Solana and Base**. It lets
+anyone create a fully on-chain token in seconds and trade it on an automated **bonding curve** — with
+no coding, no order book, and no intermediary holding user funds.
 
-Built on the **Meteora Dynamic Bonding Curve (DBC)** program, MadeOnShroom enforces unruggable
-guarantees at launch and introduces a **creator rewards model** in which token creators earn a share
-of every trade. This paper describes the protocol design, economic model, security properties, and
-roadmap.
+On Solana, MadeOnShroom is built on the **Meteora Dynamic Bonding Curve (DBC)** program; on Base,
+tokens trade on an on-chain bonding curve priced in ETH. Across both chains the platform enforces
+unruggable guarantees and a **creator rewards model** in which token creators set their token's
+trading tax and earn a share of every trade. This paper describes the protocol design, economic
+model, security properties, and roadmap.
 
 ---
 
@@ -44,36 +46,41 @@ launches suffer from one or more of these issues:
 - **Custodial risk** — platforms that hold user funds or keys can be hacked, freeze accounts, or disappear.
 - **Unaligned incentives** — creators are not rewarded for sustained trading activity, encouraging short-term behavior.
 - **Opaque pricing** — hidden fees and unclear mechanics.
+- **Chain silos** — most launchpads live on a single chain, splitting communities and liquidity.
 
 ---
 
 ## 2. The MadeOnShroom Solution
 
-MadeOnShroom addresses these problems with four design principles:
+MadeOnShroom addresses these problems with five design principles:
 
+- **Multi-chain by default** — the same launchpad runs natively on **Solana and Base**, so creators
+  reach both communities from one platform.
 - **Non-custodial by default** — every action is a transaction you sign in your own wallet. The
-  platform never holds your SOL, tokens, or keys, and never signs on your behalf.
-- **Unruggable at launch** — mint and freeze authority are revoked, metadata is immutable, and
-  graduated liquidity is permanently locked — enforced on-chain for every token.
-- **Aligned creator rewards** — creators earn 50% of trading fees during the bonding curve, then the
-  larger 70% share after graduation, continuously — rewarding them for building real, lasting volume.
-- **Transparent economics** — a flat creation fee and a flat trading fee, both clearly disclosed and
-  identical for every launch.
+  platform never holds your funds, tokens, or keys, and never signs on your behalf.
+- **Unruggable at launch** — on Solana, mint and freeze authority are revoked, metadata is immutable,
+  and graduated liquidity is permanently locked — enforced on-chain for every token.
+- **Aligned creator rewards** — the creator chooses each token's trading tax (1.5%–6%); the platform
+  keeps a flat 1% and the creator earns the remainder on every trade, rewarding them for building
+  real, lasting volume.
+- **Transparent economics** — a small creation fee and a clearly disclosed, creator-chosen trading tax.
 
 ---
 
 ## 3. Bonding Curve Mechanics
 
-Every token trades on a **Meteora Dynamic Bonding Curve** — a fully on-chain pricing program. Price
-rises automatically as people buy and falls as people sell. There is no order book and no market
-maker.
+Every token trades on an **on-chain bonding curve** — a fully on-chain pricing program. Price rises
+automatically as people buy and falls as people sell. There is no order book and no market maker.
 
 > **Buy → price up · Sell → price down** — priced continuously by the on-chain curve.
 
-When a token's bonding-curve reserve reaches **~110 SOL**, it *graduates* automatically: a **Meteora
-DAMM v2** liquidity pool is created from the accumulated SOL and remaining tokens, and the liquidity
-is **100% permanently locked**. The token then continues trading on the DAMM v2 pool — unruggable,
-with liquidity no one can withdraw.
+On **Solana**, tokens run on the **Meteora Dynamic Bonding Curve**. When a token's reserve reaches
+**~110 SOL**, it *graduates* automatically: a **Meteora DAMM v2** liquidity pool is created from the
+accumulated SOL and remaining tokens, and the liquidity is **100% permanently locked**. The token
+then continues trading on the DAMM v2 pool — unruggable, with liquidity no one can withdraw.
+
+On **Base**, tokens trade on an on-chain bonding curve priced in ETH, with the same non-custodial,
+creator-rewards model.
 
 ---
 
@@ -81,44 +88,64 @@ with liquidity no one can withdraw.
 
 Every token launched on MadeOnShroom shares the same fixed, verifiable parameters:
 
-| Parameter           | Value                       |
-| ------------------- | --------------------------- |
-| Total supply        | 1,000,000,000 (fixed)       |
-| Standard            | SPL token (Solana)          |
-| Mint authority      | Revoked at launch           |
-| Freeze authority    | Revoked at launch           |
-| Metadata            | Immutable                   |
-| Starting market cap | Identical for all launches  |
+| Parameter           | Value                                      |
+| ------------------- | ------------------------------------------ |
+| Total supply        | 1,000,000,000 per launched token (fixed)   |
+| Standard            | SPL token (Solana) · ERC-20 (Base)         |
+| Mint authority      | Revoked at launch (Solana)                 |
+| Freeze authority    | Revoked at launch (Solana)                 |
+| Metadata            | Immutable (Solana)                         |
+| Starting market cap | Identical for all launches                 |
 
 The entire supply is held in the bonding curve at launch, ensuring a fair, identical starting point
 with no pre-mine or team allocation.
 
 ---
 
-## 5. Fees & Creator Rewards
+## 5. Fees, Taxes & Creator Rewards
 
-Creating a token costs a flat **0.025 SOL platform fee** at launch plus a **~0.025 SOL** Solana
-network fee (account rent + validator gas), for roughly **0.05 SOL** in total. During the
-bonding-curve phase, every trade carries a flat **1% fee** on each buy and sell, split evenly
-(**50% platform / 50% creator**). After a token graduates to its Meteora DAMM v2 pool, the trading
-fee is **0.25%**, split **30% platform / 70% creator** — so creators earn the larger share of
-post-graduation volume.
+Creating a token on **Solana** costs a flat **0.025 SOL platform fee** at launch plus a **~0.025 SOL**
+Solana network fee (account rent + validator gas), for roughly **0.05 SOL** in total. Creating on
+**Base** costs a small ETH creation fee plus network gas.
 
-| Action                                   | Platform  | Creator |
-| ---------------------------------------- | --------- | ------- |
-| Token creation                           | 0.025 SOL | —       |
-| Buy / sell — bonding curve (1%)          | 0.5%      | 0.5%    |
-| Buy / sell — after graduation (0.25%)    | 0.075%    | 0.175%  |
-| Graduation                               | Free      | —       |
+Each token carries a **trading tax chosen by its creator at launch — from 1.5% to 6%** on every buy
+and sell, fixed on-chain. On each trade the **platform always keeps a flat 1%** and the **creator
+earns the remainder**. The same rate applies before and after a Solana token graduates to its Meteora
+DAMM v2 pool — so the creator earns their share on every trade, for the life of the token.
 
-The splits are fixed on-chain and identical for every token — 50% / 50% on the 1% bonding-curve fee,
-then 30% platform / 70% creator on the 0.25% fee after graduation. Fees accrue on-chain in SOL and
-are claimed by the share owner — creators from their Profile → Rewards, the platform from the Admin
-panel.
+| Action                                | Platform  | Creator |
+| ------------------------------------- | --------- | ------- |
+| Token creation (Solana)               | 0.025 SOL | —       |
+| Buy / sell — tax set to 1.5%          | 1%        | 0.5%    |
+| Buy / sell — tax set to 6%            | 1%        | 5%      |
+| Graduation                            | Free      | —       |
+
+The platform's flat 1% is fixed on-chain; the creator's share is whatever remains of the tax they
+chose. Fees accrue on-chain and are claimed by the share owner — creators from their Profile →
+Rewards, the platform from the Admin panel.
 
 ---
 
-## 6. Bounties (Escrow Challenges)
+## 6. Bridge to Base & the Official $SHROOM Token
+
+To make it easy to get onto Base, MadeOnShroom includes a **Bridge**. Users can move **SOL, ETH, BNB,
+and other assets** from their native chain to **ETH on Base** in a few clicks (powered by deBridge,
+fully non-custodial), then swap that ETH for tokens on Base.
+
+The platform's **official $SHROOM token** is live on **Base** and featured on the home page:
+
+| Parameter       | Value                                        |
+| --------------- | -------------------------------------------- |
+| Chain           | Base                                         |
+| Total supply    | 1,000,000                                    |
+| Transfer tax    | 5% (3% ETH rewards · 1% burn · 1% marketing) |
+| Max wallet / tx | None                                         |
+
+$SHROOM trades on Uniswap (Base) and is fully verifiable on Basescan.
+
+---
+
+## 7. Bounties (Escrow Challenges)
 
 Bounties extend MadeOnShroom beyond trading: they let anyone post a **challenge backed by a real SOL
 reward** and pay it out to whoever proves they completed it. They are designed to drive community
@@ -148,49 +175,53 @@ participation — content, tasks, milestones — with a transparent, on-chain re
 reward is **held in escrow by the platform wallet** between posting and settlement. This is the one
 deliberately custodial part of the protocol, required so the reward is guaranteed to exist when a
 winner is approved. The backend never holds private keys: every escrow deposit, payout, and refund is
-an ordinary on-chain SOL transfer that is verified server-side and independently checkable on a Solana
-explorer.
+an ordinary on-chain transfer that is verified server-side and independently checkable on an explorer.
 
 ---
 
-## 7. Security & Unruggable Guarantees
+## 8. Security & Unruggable Guarantees
 
-Every token enforces the following properties on-chain at launch:
+On **Solana**, every token enforces the following properties on-chain at launch:
 
 - **Mint authority revoked** — supply is permanently fixed at 1,000,000,000; no one can ever mint more.
 - **Freeze authority revoked** — no account can be frozen; tokens cannot be locked or seized.
 - **Immutable metadata** — name, symbol, and image cannot be changed after creation.
-- **LP locked at graduation** — 100% of migrated liquidity is permanently locked and can never be withdrawn (the locked position is split 30% platform / 70% creator for fee accrual only — neither side can ever pull the liquidity).
+- **LP locked at graduation** — 100% of migrated liquidity is permanently locked and can never be withdrawn.
+
+On **Base**, tokens are standard ERC-20s trading on an on-chain bonding curve; all activity is public
+and verifiable on Basescan.
 
 ---
 
-## 8. Technical Architecture
+## 9. Technical Architecture
 
-MadeOnShroom is **non-custodial by design**. All pricing, trading, and graduation logic runs on the
-public Meteora DBC program; graduated tokens trade on Meteora DAMM v2. The backend is a **read-only
-indexer** that reads public on-chain data (token lists, charts, holders, trade history). It cannot
-move funds and is never part of a transaction's signing path.
+MadeOnShroom is **non-custodial by design**. All pricing, trading, and graduation logic runs on
+public on-chain programs and contracts: the Meteora DBC program on Solana (graduated tokens trade on
+Meteora DAMM v2), and on-chain bonding-curve contracts on Base. The backend is a **read-only indexer**
+that reads public on-chain data (token lists, charts, holders, trade history). It cannot move funds
+and is never part of a transaction's signing path.
 
-Meteora DBC program id: `dbcij3LWUppWqq96dh6gJWwBifmcGfLSB5D4DuSMaqN`. Every token, trade, and pool
-is independently verifiable on a Solana explorer such as Solscan. A native mobile app (iOS & Android)
-provides the same non-custodial experience via Phantom.
+Meteora DBC program id (Solana): `dbcij3LWUppWqq96dh6gJWwBifmcGfLSB5D4DuSMaqN`. Every token, trade,
+and pool is independently verifiable on a public explorer (Solscan on Solana, Basescan on Base). A
+native mobile app (iOS & Android) provides the same non-custodial experience.
 
 ---
 
-## 9. Roadmap
+## 10. Roadmap
 
 | Milestone                  | Description                                                                                  | Status            |
 | -------------------------- | -------------------------------------------------------------------------------------------- | ----------------- |
-| Live on mainnet            | Non-custodial launchpad, bonding-curve trading, graduation, and creator rewards — shipped.    | Done              |
+| Live on Solana             | Non-custodial launchpad, bonding-curve trading, graduation, and creator rewards — shipped.    | Done              |
+| Live on Base               | Multi-chain launchpad with on-chain bonding-curve trading on Base — shipped.                   | Done              |
+| Bridge to Base             | In-app, non-custodial bridge from Solana, Ethereum, BNB and more onto Base — shipped.          | Done              |
 | Mobile apps                | Native iOS & Android apps submitted to the app stores.                                         | In progress       |
-| SHROOM Points & referrals  | On-platform loyalty and referral program with future utility (governance, fee discounts).     | Live / expanding  |
-| Ecosystem & integrations   | Deeper analytics, partner integrations, and growth of the token ecosystem.                     | Planned           |
+| Ecosystem & integrations   | Deeper analytics, partner integrations, and growth of the token ecosystem across both chains.  | Planned           |
 
 The roadmap is indicative and may evolve. It is not a commitment or a guarantee of future features.
 
 ---
 
-## 10. Risk & Disclaimer
+## 11. Risk & Disclaimer
 
 **Not financial advice.** Nothing in this document is financial, investment, legal, or tax advice.
 Crypto tokens are highly speculative and frequently lose all value. You can lose 100% of the funds you
