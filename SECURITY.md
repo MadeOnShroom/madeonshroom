@@ -1,8 +1,8 @@
 # Security Policy
 
 We take the security of MadeOnShroom and its users seriously. Because the platform is non-custodial,
-all value-bearing logic settles on public Solana programs — but we still want to hear about any issue
-that could put users at risk.
+all value-bearing logic settles on public on-chain programs (on Solana and Base) — but we still want
+to hear about any issue that could put users at risk.
 
 ## Reporting a vulnerability
 
@@ -32,12 +32,13 @@ In scope:
 Out of scope:
 
 - The Meteora DBC and DAMM v2 programs themselves (report those to Meteora).
-- The Solana network, validators, and RPC providers.
-- Issues in third-party wallets (e.g. Phantom).
+- The Solana and Base networks, validators, and RPC providers.
+- The third-party bridge provider (deBridge) embedded for bridging to Base.
+- Issues in third-party wallets (e.g. Phantom, MetaMask, WalletConnect wallets).
 - Volatility, market, or financial loss inherent to trading speculative tokens.
 
 ## A note on custody
 
-MadeOnShroom never holds your SOL, tokens, or private keys. Always verify transactions in your wallet
-before signing, and never share your seed phrase or private key with anyone — including anyone
+MadeOnShroom never holds your funds, tokens, or private keys. Always verify transactions in your
+wallet before signing, and never share your seed phrase or private key with anyone — including anyone
 claiming to be from MadeOnShroom.
