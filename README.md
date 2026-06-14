@@ -81,7 +81,8 @@ a small ETH creation fee plus network gas.
 
 Each token carries a **trading tax chosen by its creator at launch — anywhere from 1.5% to 6%** on
 every buy and sell, fixed on-chain. On every trade the **platform always keeps a flat 1%** and the
-**creator earns the remainder**. The same rate applies before and after a Solana token graduates to
+**creator earns the remainder**. The same rate applies before and after graduation — on Base it
+continues as a transfer tax on the Uniswap V2 pair, and on Solana it applies before and after a token graduates to
 its Meteora DAMM v2 pool — so a higher tax means a bigger creator share on every trade, for the life
 of the token.
 
