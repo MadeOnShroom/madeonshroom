@@ -79,7 +79,9 @@ On **Solana**, tokens run on the **Meteora Dynamic Bonding Curve**. When a token
 accumulated SOL and remaining tokens, and the liquidity is **100% permanently locked**. The token
 then continues trading on the DAMM v2 pool — unruggable, with liquidity no one can withdraw.
 
-On **Base**, tokens trade on an on-chain bonding curve priced in ETH, with the same non-custodial,
+On **Base**, tokens trade on an on-chain bonding curve priced in ETH. When a token reaches its
+graduation target (~$50k fully-diluted value) it *graduates* automatically to a **Uniswap V2** pair,
+where the creator-chosen tax keeps applying as a transfer tax — the same non-custodial,
 creator-rewards model.
 
 ---
@@ -188,8 +190,8 @@ On **Solana**, every token enforces the following properties on-chain at launch:
 - **Immutable metadata** — name, symbol, and image cannot be changed after creation.
 - **LP locked at graduation** — 100% of migrated liquidity is permanently locked and can never be withdrawn.
 
-On **Base**, tokens are standard ERC-20s trading on an on-chain bonding curve; all activity is public
-and verifiable on Basescan.
+On **Base**, tokens are standard ERC-20s trading on an on-chain bonding curve that graduates to a
+Uniswap V2 pair at ~$50k fully-diluted value; all activity is public and verifiable on Basescan.
 
 ---
 
