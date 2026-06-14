@@ -22,7 +22,8 @@ Create, trade, and grow tokens through a fully on-chain bonding curve — on **S
 **MadeOnShroom** is a **multi-chain token launchpad on Solana and Base**. Anyone can launch a fully
 on-chain token in seconds and trade it on an automated **bonding curve** — with no coding, no order
 book, and no intermediary holding user funds. On Solana it is built on the **Meteora Dynamic Bonding
-Curve (DBC)** program; on Base, tokens trade on an on-chain bonding curve priced in ETH.
+Curve (DBC)** program and graduates to a Meteora DAMM v2 pool; on Base, tokens trade on an on-chain
+bonding curve priced in ETH and graduate to a Uniswap V2 pair at ~$50k fully-diluted value.
 
 The platform is **non-custodial by design**: every action is a transaction you sign in your own
 wallet. MadeOnShroom never holds your funds, your tokens, or your keys, and never signs on your behalf.
@@ -153,10 +154,11 @@ On **Solana**, every token enforces the following **on-chain at launch**:
 - **Immutable metadata** — name, symbol, and image cannot be changed after creation.
 - **LP locked at graduation** — 100% of migrated liquidity is permanently locked and can never be withdrawn.
 
-On **Base**, tokens are standard ERC-20s that trade on an on-chain bonding curve. Every token, trade,
-and pool is independently verifiable on a public explorer such as [Solscan](https://solscan.io)
-(Solana) or [Basescan](https://basescan.org) (Base). To report a vulnerability, see
-[SECURITY.md](./SECURITY.md).
+On **Base**, tokens are standard ERC-20s that trade on an on-chain bonding curve and graduate to a
+Uniswap V2 pair at ~$50k fully-diluted value, where the creator-chosen tax keeps applying as a
+transfer tax. Every token, trade, and pool is independently verifiable on a public explorer such as
+[Solscan](https://solscan.io) (Solana) or [Basescan](https://basescan.org) (Base). To report a
+vulnerability, see [SECURITY.md](./SECURITY.md).
 
 ---
 
