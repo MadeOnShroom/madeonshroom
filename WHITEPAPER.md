@@ -199,7 +199,8 @@ Uniswap V2 pair at ~$50k fully-diluted value; all activity is public and verifia
 
 MadeOnShroom is **non-custodial by design**. All pricing, trading, and graduation logic runs on
 public on-chain programs and contracts: the Meteora DBC program on Solana (graduated tokens trade on
-Meteora DAMM v2), and on-chain bonding-curve contracts on Base. The backend is a **read-only indexer**
+Meteora DAMM v2), and on-chain bonding-curve contracts on Base that graduate to a Uniswap V2 pair at
+~$50k fully-diluted value (the creator tax continues as a transfer tax). The backend is a **read-only indexer**
 that reads public on-chain data (token lists, charts, holders, trade history). It cannot move funds
 and is never part of a transaction's signing path.
 
